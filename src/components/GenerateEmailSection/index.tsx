@@ -2,14 +2,14 @@ import { Button, Input , InputGroup, InputRightElement, Text, Icon, VStack} from
 import {MdContentCopy} from "react-icons/md"
 import { RefreshEmail } from "./refreshEmail";
 type GenerateEmailSection = {
-    email: string | undefined
+    email: string
 }
 export function GenerateEmailSection({email}:GenerateEmailSection) {
     return(
         <VStack width={"500px"}>
             <Text mr={"auto"} fontSize={{base:"2xl", md:"md"}}>Your temporary email</Text>
             <InputGroup size={"md"} mb={2}>
-                <Input value={email}/>
+                <Input defaultValue={email}/>
                 <InputRightElement>
                     <Button backgroundColor={"yellow.400"}>
                         <Icon as={MdContentCopy}></Icon>

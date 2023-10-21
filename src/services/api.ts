@@ -1,6 +1,6 @@
 import axios, {AxiosError} from 'axios';
 export const api = axios.create({
-  baseURL: `https://cors-anywhere.herokuapp.com`,
+  baseURL: `http://localhost:8080`,
   headers: {
     "Content-Type": "application/json"
   }

@@ -2,10 +2,10 @@ import { Box, Divider, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { ShortEmailCard } from "./shortEmailCard";
 import { LongEmailCard } from "./longEmailCard";
+import { Email } from "@/types/Emails";
+import { AreaTitle } from "../AreaTitle";
 type EmailProps = {
-    author: string
-    title: string
-    content: string
+    mails: Email[],
 }
 const emailContent = `
 Caro [Nome do Destinatário],
@@ -19,47 +19,42 @@ Ficarei feliz em responder a qualquer pergunta que você possa ter. Por favor, e
 Atenciosamente,
 [Seu Nome]
 `;
-export function InboxSection() {
-    const [emails, setEmails] = useState<EmailProps[]>([
-        {
-            author: "Natan Borges",
-            title: "Realizar Tarefa Tal e Tal",
-            content: emailContent
-        },
-        {
-            author: "Victor Hugo",
-            title: "Realizar reparo no carro hb20",
-            content: emailContent
-        },
-        {
-            author: "Desiree B",
-            title: "Realizar entrevista com canditado x",
-            content: emailContent
-        }
-    ])
-    const [selectedEmail, setSelectedEmail] = useState<EmailProps | null>(null);
+export function InboxSection({mails}: EmailProps) {
+    const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
 
-    const handleEmailClick = (email: EmailProps) => {
+    const handleEmailClick = (email: Email) => {
         setSelectedEmail(email);
     };
     
     return (
-        <Flex direction={"column"}>
-            <Divider/>
-            <Text fontSize={{base:"3xl", md:"2xl"}} p={8}>Inbox</Text>
+        <Flex direction={"column"} bg='gray.700'>
+            <Divider borderColor={"yellow.400"}/>
+            <AreaTitle title="Inbox"/>
             <Grid 
                 h='auto'
-                templateRows='repeat(2, 1fr)'
-                templateColumns='repeat(5, 1fr)'
+                templateRows='repeat(3, 1fr)'
+                templateColumns='repeat(6, 1fr)'
                 gap={4}
+                ml={2}
             >
-                <GridItem rowSpan={2} colSpan={1} bg='tomato'>
-                    {emails.map((email, index) => (
-                        <ShortEmailCard key={index} author={email.author} title={email.title} content={email.content} onClick={() => handleEmailClick(email)}/>
+                <GridItem css={{
+        "&::-webkit-scrollbar": {
+          width: "12px", // Largura da barra de rolagem
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "teal.500", // Cor da alça da barra de rolagem
+          borderRadius: "6px", // Borda arredondada
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          background: "teal.700", // Cor da alça ao passar o mouse
+        },
+      }} rowSpan={1} colSpan={2} w={"auto"} maxHeight="50vh" overflowY="auto"  borderRadius={"md"} p={2}>
+                    {mails.map((email, index) => (
+                        <ShortEmailCard key={index} author={email.fromAddr} title={email.headerSubject} content={email.text} onClick={() => handleEmailClick(email)}/>
                     ))}
                 </GridItem>
-                <GridItem colSpan={4} bg='tomato'>
-                    {selectedEmail !== null &&  <LongEmailCard author={selectedEmail.author} title={selectedEmail.title} content={selectedEmail.content}/>}
+                <GridItem colSpan={4} rowSpan={2} bg='gray.800' p={6} borderRadius={"md"} w={"95%"}>
+                    {selectedEmail !== null &&  <LongEmailCard author={selectedEmail.fromAddr} title={selectedEmail.headerSubject} content={selectedEmail.text}/>}
                 </GridItem>
             </Grid>
         </Flex>
