@@ -29,11 +29,11 @@ export default function Home(){
                   Natan Borges <Text as={"span"} ml={1} color={"yellow.400"}>  Dropmail</Text> 
                 </Heading>
             </Box>
-            <Center mb={20}>
+            <Center mb={10}>
                 {isLoading  ? <Spinner/> : <GenerateEmailSection email={user?.addresses[0].address || ""}/>}
             </Center>
             {user !== undefined &&
-                <InboxSection mails={user?.mails}/>
+                <InboxSection/>
             }
             
         

@@ -18,7 +18,6 @@ export function GenerateEmailSection({email}:GenerateEmailSection) {
         } catch (error) {
             
         }
-        
     }
     return(
         <VStack width={"500px"}>

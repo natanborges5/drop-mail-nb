@@ -44,7 +44,6 @@ export const AuthContext = createContext({} as AuthContextData)
 export function AuthProvider({children}: AuthProviderProps) {
     const [user, setUser] = useState<UserSession>();
     const toast = useToast()
-    const apiSecret = process.env.REACT_APP_API_SECRET;
     async function getSession() {
         try {
             const { 'userSession.id': sessionId } = parseCookies();
@@ -134,9 +133,12 @@ export function AuthProvider({children}: AuthProviderProps) {
             };
             const response = await api.post<ApiResponse>('/https://dropmail.me/api/graphql/web-test-202310203KeHM', queryToload)
             const responseDataMails = response.data.data.session.mails
-            console.log(responseDataMails)
+            
             if(user){
-                user.mails = responseDataMails
+                const updatedUser = { ...user };
+                updatedUser.mails = responseDataMails;
+                setUser(updatedUser);
+                console.log(user.mails)
             }
         } catch (error) {
             const isAppError = error instanceof AppError
