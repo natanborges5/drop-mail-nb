@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShortEmailCard } from "./shortEmailCard";
 import { LongEmailCard } from "./longEmailCard";
 import { Email } from "@/types/Emails";
@@ -9,11 +9,11 @@ type EmailProps = {
 }
 export function InboxSection({mails}: EmailProps) {
     const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
-
     const handleEmailClick = (email: Email) => {
         setSelectedEmail(email);
     };
-    
+    useEffect(() => {
+    }, [])
     return (
         <Flex direction={"column"} bg='gray.700'>
             <Divider borderColor={"yellow.400"}/>

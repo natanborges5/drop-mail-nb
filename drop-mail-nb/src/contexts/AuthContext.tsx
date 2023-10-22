@@ -1,5 +1,6 @@
 import { api } from "@/services/api";
 import { Email } from "@/types/Emails";
+import { AppError } from "@/utils/AppErro";
 import { useToast } from "@chakra-ui/react";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { ReactNode, createContext, useState } from "react";
@@ -30,8 +31,9 @@ type UserSession = {
     }[];
 }
 type AuthContextData = {
-    getSession(): Promise<void>;
-    user?: UserSession;
+    getSession(): Promise<void>,
+    refreshInbox(): Promise<void>,
+    user?: UserSession,
   };
 type AuthProviderProps = {
     children: ReactNode;
@@ -43,10 +45,8 @@ export function AuthProvider({children}: AuthProviderProps) {
     const [user, setUser] = useState<UserSession>();
     const toast = useToast()
     const apiSecret = process.env.REACT_APP_API_SECRET;
-    const [isLoading, setIsLoading] = useState<boolean>()
     async function getSession() {
         try {
-            setIsLoading(true)
             const { 'userSession.id': sessionId } = parseCookies();
             if(!sessionId){
                 await getNewSession()
@@ -87,9 +87,6 @@ export function AuthProvider({children}: AuthProviderProps) {
         } catch (error) {
             console.error('Erro na solicitação:', error);
         }
-        finally{
-            setIsLoading(false)
-        }
     }
     async function getNewSession() {
         try {
@@ -116,8 +113,44 @@ export function AuthProvider({children}: AuthProviderProps) {
             })
         }
     }
+    async function refreshInbox() {
+        try {
+            const queryToload = {
+                query: `
+                  query ($id: ID!) {
+                    session(id: $id) {
+                      mails {
+                        rawSize
+                        fromAddr
+                        toAddr
+                        downloadUrl
+                        text
+                        headerSubject
+                      }
+                    }
+                  }
+                `,
+                variables: { id: user?.id }
+            };
+            const response = await api.post<ApiResponse>('/https://dropmail.me/api/graphql/web-test-202310203KeHM', queryToload)
+            const responseDataMails = response.data.data.session.mails
+            console.log(responseDataMails)
+            if(user){
+                user.mails = responseDataMails
+            }
+        } catch (error) {
+            const isAppError = error instanceof AppError
+            const title = isAppError ? error.getErrorMessage() : "Não foi possível atualizar. Tente novamente mais tarde."
+            toast({
+                title,
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            })
+        }
+    }
     return (
-        <AuthContext.Provider value={{getSession,user}}>
+        <AuthContext.Provider value={{getSession,user,refreshInbox}}>
         {children}
         </AuthContext.Provider>
     )
