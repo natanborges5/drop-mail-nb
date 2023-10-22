@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <ChakraProvider theme={theme}>
             <AuthProvider>
                 <Component {...pageProps} />
-            </AuthProvider> 
+            </AuthProvider>
         </ChakraProvider>
     )
 }
