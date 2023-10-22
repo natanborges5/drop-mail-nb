@@ -37,7 +37,7 @@ export default function Home(){
             h="100vh" 
             direction={"column"}
         >
-            <Box p={10}>
+            <Box p={{base:10,md:10}}>
                 <Heading 
                     fontWeight="bold"
                     letterSpacing="tight"

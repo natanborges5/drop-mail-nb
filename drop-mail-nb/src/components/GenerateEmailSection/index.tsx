@@ -20,7 +20,7 @@ export function GenerateEmailSection({email}:GenerateEmailSection) {
         }
     }
     return(
-        <VStack width={"500px"}>
+        <VStack width={{base:"auto",md:"500px"}}>
             <Text mr={"auto"} fontSize={{base:"2xl", md:"md"}}>Your temporary email</Text>
             <InputGroup size={"md"} mb={2}>
                 <Input defaultValue={email}/>

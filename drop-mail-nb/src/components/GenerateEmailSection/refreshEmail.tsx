@@ -56,7 +56,7 @@ export function RefreshEmail() {
   }, [counter]);
   return (
       <Box>
-          <HStack fontSize={{base:"2xl", md:"lg"}}>
+          <HStack fontSize={{base:"xl", md:"lg"}}>
             <Text>Autorefresh in <Text as={"span"} fontWeight={"bold"} color={"yellow.500"}>{counter}</Text></Text>
             <Button onClick={fetchMails} variant={"ghost"} backgroundColor={"yellow.400"} color={"black"} _hover={{
               backgroundColor: "yellow.500"
