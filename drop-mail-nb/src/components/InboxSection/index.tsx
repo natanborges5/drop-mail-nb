@@ -7,18 +7,6 @@ import { AreaTitle } from "../AreaTitle";
 type EmailProps = {
     mails: Email[],
 }
-const emailContent = `
-Caro [Nome do Destinatário],
-
-Espero que você esteja bem. Estou escrevendo para discutir a tarefa que mencionamos anteriormente. Quero compartilhar algumas informações importantes relacionadas a ela.
-
-[Adicione aqui os detalhes ou informações específicas sobre a tarefa.]
-
-Ficarei feliz em responder a qualquer pergunta que você possa ter. Por favor, entre em contato comigo para discutirmos mais.
-
-Atenciosamente,
-[Seu Nome]
-`;
 export function InboxSection({mails}: EmailProps) {
     const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
 
@@ -31,24 +19,24 @@ export function InboxSection({mails}: EmailProps) {
             <Divider borderColor={"yellow.400"}/>
             <AreaTitle title="Inbox"/>
             <Grid 
-                h='auto'
+                h='100vh'
                 templateRows='repeat(3, 1fr)'
                 templateColumns='repeat(6, 1fr)'
                 gap={4}
                 ml={2}
             >
                 <GridItem css={{
-        "&::-webkit-scrollbar": {
-          width: "12px", // Largura da barra de rolagem
-        },
-        "&::-webkit-scrollbar-thumb": {
-          background: "teal.500", // Cor da alça da barra de rolagem
-          borderRadius: "6px", // Borda arredondada
-        },
-        "&::-webkit-scrollbar-thumb:hover": {
-          background: "teal.700", // Cor da alça ao passar o mouse
-        },
-      }} rowSpan={1} colSpan={2} w={"auto"} maxHeight="50vh" overflowY="auto"  borderRadius={"md"} p={2}>
+                    "&::-webkit-scrollbar": {
+                    width: "12px", // Largura da barra de rolagem
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                    background: "teal.500", // Cor da alça da barra de rolagem
+                    borderRadius: "6px", // Borda arredondada
+                    },
+                    "&::-webkit-scrollbar-thumb:hover": {
+                    background: "teal.700", // Cor da alça ao passar o mouse
+                    },
+                }} rowSpan={1} colSpan={2} w={"auto"} maxHeight="50vh" overflowY="auto"  borderRadius={"md"} p={2}>
                     {mails.map((email, index) => (
                         <ShortEmailCard key={index} author={email.fromAddr} title={email.headerSubject} content={email.text} onClick={() => handleEmailClick(email)}/>
                     ))}

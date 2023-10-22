@@ -48,7 +48,6 @@ export function AuthProvider({children}: AuthProviderProps) {
         try {
             setIsLoading(true)
             const { 'userSession.id': sessionId } = parseCookies();
-            //const sessionId = "U2Vzc2lvbjoAEjMU7JRCUINQxigZexGi"
             if(!sessionId){
                 await getNewSession()
             }else{

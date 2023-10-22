@@ -8,7 +8,9 @@ export function RefreshEmail({counter}: RefresEmailProps) {
         <>
             <HStack fontSize={{base:"2xl", md:"lg"}}>
               <Text>{`Autorefresh in ${counter}`}</Text>
-              <Button variant={"ghost"} backgroundColor={"yellow.400"} colorScheme="blue" color={"black"}>
+              <Button variant={"ghost"} backgroundColor={"yellow.400"} color={"black"} _hover={{
+                backgroundColor: "yellow.500"
+              }}>
                 <Icon as={MdRefresh} boxSize={6}/>
                 <Text ml={2}>Refresh</Text>
               </Button>
