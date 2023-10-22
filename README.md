@@ -7,6 +7,7 @@ adicional de segurança e privacidade, permitindo que os usuários desfrutem de 
 • Stack de tecnologias:
 Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
 
+• This is a challenge by Coodesh
 ## 🎲 [Rodando a aplicação](#rodando-o-app)
 
 ### Rodando localmente
