@@ -1,24 +1,44 @@
 import { AuthContext } from "@/contexts/AuthContext";
-import { HStack, Text, Icon, Button, Box, Spinner } from "@chakra-ui/react";
+import { AppError } from "@/utils/AppErro";
+import { HStack, Text, Icon, Button, Box, Spinner, useToast } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import {MdRefresh} from "react-icons/md"
-
+import {MdRefresh, MdNotificationsOff, MdNotifications} from "react-icons/md"
 export function RefreshEmail() {
   const {refreshInbox,} = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
   const [counter, setCounter] = useState(15);
+  const [allowNotification, setAllowNotification] = useState<boolean>(true)
+  const toast = useToast()
   async function fetchMails() {
     try {
-      setIsLoading(true)
-      await refreshInbox()
-      setCounter(15); 
+		setIsLoading(true)
+		await refreshInbox(allowNotification)
+		setCounter(15); 
     } catch (error) {
-      console.log(error)
+      if(error instanceof AppError){
+		toast({
+            title: error.message,
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+        })
+	  }
+        
     }
     finally{
       setIsLoading(false)
     }
   }
+  async function handleShowNotification() {
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          console.log("Permissão concedida para mostrar notificações!");
+        }
+      });
+    }
+    setAllowNotification(!allowNotification)
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       if (counter > 0) {
@@ -45,6 +65,11 @@ export function RefreshEmail() {
                 <Icon as={MdRefresh} boxSize={6}/>
                 <Text ml={2}>Refresh</Text>
               </>}
+            </Button>
+            <Button onClick={handleShowNotification} variant={"ghost"} backgroundColor={"yellow.400"} color={"black"} _hover={{
+              backgroundColor: "yellow.500"
+            }}>
+              {!allowNotification ? <Icon as={MdNotificationsOff}/> : <Icon as={MdNotifications}/>}
             </Button>
           </HStack>
       </Box>

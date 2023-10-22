@@ -1,7 +1,6 @@
 import { api } from "@/services/api";
 import { Email } from "@/types/Emails";
-import { AppError } from "@/utils/AppErro";
-import { useToast } from "@chakra-ui/react";
+import { AppError, ErrorEntry } from "@/utils/AppErro";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { ReactNode, createContext, useState } from "react";
 
@@ -32,7 +31,7 @@ type UserSession = {
 }
 type AuthContextData = {
     getSession(): Promise<void>,
-    refreshInbox(): Promise<void>,
+    refreshInbox(allowNotification: boolean): Promise<void>,
     user?: UserSession,
   };
 type AuthProviderProps = {
@@ -43,7 +42,6 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({children}: AuthProviderProps) {
     const [user, setUser] = useState<UserSession>();
-    const toast = useToast()
     async function getSession() {
         try {
             const { 'userSession.id': sessionId } = parseCookies();
@@ -84,7 +82,9 @@ export function AuthProvider({children}: AuthProviderProps) {
                 }
             }
         } catch (error) {
-            console.error('Erro na solicitação:', error);
+            const isAppError = error instanceof ErrorEntry
+            const title = isAppError ? error.message: "Não foi possível atualizar. Tente novamente mais tarde."
+            throw new AppError(title)
         }
     }
     async function getNewSession() {
@@ -103,16 +103,12 @@ export function AuthProvider({children}: AuthProviderProps) {
             })
             getSession()
         } catch (error) {
-            console.log(error)
-            toast({
-                title: "Não foi possivel carregar a nova sessão",
-                status: "error",
-                duration: 9000,
-                isClosable: true,
-            })
+            const isAppError = error instanceof ErrorEntry
+            const title = isAppError ? error.message: "Não foi possível atualizar. Tente novamente mais tarde."
+            throw new AppError(title)
         }
     }
-    async function refreshInbox() {
+    async function refreshInbox(allowNotification: boolean) {
         try {
             const queryToload = {
                 query: `
@@ -135,20 +131,19 @@ export function AuthProvider({children}: AuthProviderProps) {
             const responseDataMails = response.data.data.session.mails
             
             if(user){
+                if(user.mails.length !== responseDataMails.length && allowNotification){
+                    new Notification(responseDataMails[0].fromAddr, {
+                        body: responseDataMails[0].headerSubject.toUpperCase(),
+                    });
+                }
                 const updatedUser = { ...user };
                 updatedUser.mails = responseDataMails;
                 setUser(updatedUser);
-                console.log(user.mails)
             }
         } catch (error) {
-            const isAppError = error instanceof AppError
-            const title = isAppError ? error.getErrorMessage() : "Não foi possível atualizar. Tente novamente mais tarde."
-            toast({
-                title,
-                status: "error",
-                duration: 9000,
-                isClosable: true,
-            })
+            const isAppError = error instanceof ErrorEntry
+            const title = isAppError ? error.message: "Não foi possível atualizar. Tente novamente mais tarde."
+            throw new AppError(title)
         }
     }
     return (

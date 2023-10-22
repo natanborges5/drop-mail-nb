@@ -32,7 +32,7 @@ export function GenerateEmailSection({email}:GenerateEmailSection) {
                     </Button>
                 </InputRightElement>
             </InputGroup>
-            <RefreshEmail counter={10}/>
+            <RefreshEmail/>
         </VStack>
     )
 }

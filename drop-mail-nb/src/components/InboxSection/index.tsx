@@ -14,7 +14,6 @@ export function InboxSection() {
     };
     useEffect(() => {
         setLocalMails(user?.mails ? [...user.mails] : []);
-        console.log("useEffect trigered")
     }, [user?.mails])
     return (
         <Flex direction={"column"} bg='gray.700'>
@@ -38,12 +37,12 @@ export function InboxSection() {
                     "&::-webkit-scrollbar-thumb:hover": {
                     background: "teal.700", // Cor da alça ao passar o mouse
                     },
-                }} rowSpan={3} colSpan={2} w={"auto"} minH={"500px"} overflowY="auto"  borderRadius={"md"} p={2}>
+                }} rowSpan={5} colSpan={2} w={"auto"} overflowY="auto" bg='gray.800' borderRadius={"md"} p={4}>
                     {localMails?.map((email, index) => (
                         <ShortEmailCard key={index} author={email.fromAddr} title={email.headerSubject} content={email.text} onClick={() => handleEmailClick(email)}/>
                     ))}
                 </GridItem>
-                <GridItem colSpan={4} rowSpan={3} bg='gray.800' p={6} borderRadius={"md"} w={"95%"}>
+                <GridItem colSpan={4} rowSpan={4} bg='gray.800' p={6} borderRadius={"md"} w={"95%"}>
                     {selectedEmail !== null &&  <LongEmailCard author={selectedEmail.fromAddr} title={selectedEmail.headerSubject} content={selectedEmail.text}/>}
                 </GridItem>
             </Grid>

@@ -1,16 +1,32 @@
 import { GenerateEmailSection } from "@/components/GenerateEmailSection";
 import { InboxSection } from "@/components/InboxSection";
 import { AuthContext } from "@/contexts/AuthContext";
+import { AppError } from "@/utils/AppErro";
 import { Box, Center, Flex, Heading, Text, Spinner, useToast } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 
 export default function Home(){
     const [isLoading, setIsLoading] = useState<boolean>()
     const {getSession, user} = useContext(AuthContext)
+    const toast = useToast()
     async function fetchSession() {
-        setIsLoading(true)
-        await getSession()
-        setIsLoading(false)
+        try {
+            setIsLoading(true)
+            await getSession()
+        } catch (error) {
+            if(error instanceof AppError)
+            toast({
+                title: error.message,
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+            })
+        }
+        finally{
+            setIsLoading(false)
+        }
+        
+        
     }
     useEffect(() => {
         fetchSession()
