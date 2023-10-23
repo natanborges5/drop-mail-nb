@@ -7,9 +7,7 @@ adicional de segurança e privacidade, permitindo que os usuários desfrutem de 
 • Stack de tecnologias:
 Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
 
-• Decisões de Design  
-
-  Optei por utilizar o framework [**ChakraUI**](https://chakra-ui.com/)devido à minha experiência prévia com ele e sua capacidade de ser altamente responsivo. O projeto foi desenvolvido utilizando o Next.js, e para consumir a [**DropMail API**]    (https://dropmail.me/api/), optei pelo uso do Axios, configurando sua URL base para o endereço no qual o contêiner Docker do [**drop-mail-proxy**](https://github.com/natanborges5/drop-mail-nb/tree/master/drop-mail-proxy) está em execução. Essa configuração resolveu o problema de CORS (Cross-Origin Resource Sharing) ao acessar a API.
+• Decisões de Design: Optei por utilizar o framework [**ChakraUI**](https://chakra-ui.com/)devido à minha experiência prévia com ele e sua capacidade de ser altamente responsivo. O projeto foi desenvolvido utilizando o Next.js, e para consumir a [**DropMail API**]    (https://dropmail.me/api/), optei pelo uso do Axios, configurando sua URL base para o endereço no qual o contêiner Docker do [**drop-mail-proxy**](https://github.com/natanborges5/drop-mail-nb/tree/master/drop-mail-proxy) está em execução. Essa configuração resolveu o problema de CORS (Cross-Origin Resource Sharing) ao acessar a API.
   
   O projeto foi hospedado na[**vercel app**](https://drop-mail-nb.vercel.app/), com o frontend disponível online. No entanto, a API não está funcional na Vercel, pois o proxy está configurado apenas para rodar localmente. Embora eu tenha tentado publicar o proxy no Heroku, não foi viável devido às limitações do plano gratuito.
   
