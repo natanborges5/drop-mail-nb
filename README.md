@@ -1,8 +1,3 @@
-<p align="center">
- <a href="#contexto-geral">Contexto geral</a> •
- <a href="#rodando-o-app">Rodando a aplicação</a> •
-</p>
-
 ## 🧙[DropMail Natan Borges]🧙(#contexto-geral)
 
 • Descrição do projeto: Este projeto tem como objetivo desenvolver uma aplicação que permitirá aos usuários utilizar endereços de e-mail temporários para proteger sua privacidade e evitar spam ao interagir
@@ -29,13 +24,13 @@ Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
 <!-- Layout Mobile -->
 <h3 align="center">Layout Mobile</h3>
 <p align="center">
-  <img width="663" alt="imageMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/homeMobile.png">
+  <img width="663" height="963" alt="imageMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/homeMobile.png">
 </p>
 
 <!-- Layout Mobile Mail -->
 <h3 align="center">Layout Mobile Mail</h3>
 <p align="center">
-  <img width="663" alt="imageMailMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/mailMobile.png">
+  <img width="663" height="963" alt="imageMailMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/mailMobile.png">
 </p>
   
 • *This is a challenge by Coodesh*
