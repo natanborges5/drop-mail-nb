@@ -42,27 +42,7 @@ Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
 # Primeiramente é necessário clonar a aplicação no github:
 $ git clone https://github.com/natanborges5/drop-mail-nb.git
 
-# Acessar a pasta do proxy
-$ cd .\drop-mail-proxy\
-
-# Criar a imagem docker
-$ docker build -t drop-mail-proxy .
-
-# Iniciar o Container Docker(Docker precisa estar aberto)
-$ docker run -p 8080:8080 drop-mail-proxy
-
-# Voltar a pasta inicial e depois acessar a pasta da aplicação Front-End
-$ cd ../
-$ cd .\drop-mail-nb\
-
-# Instalar todas as dependências da aplicação
-$ npm i
-
-
-# Rode a aplicação com os seguintes comandos
-$ npm run build
-$ npm run start
-
-# Pode ser rodado para dev com o comando
-$ npm run dev
+# Rodar o docker compose na pasta raiz (Docker tem que estar aberto)
+$ docker-compose up --build
+# Acessar http://localhost:3000/
 ```
