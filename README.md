@@ -21,7 +21,7 @@ Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
 <!-- Layout Normal -->
 <h3 align="center">Layout Normal</h3>
 <p align="center">
-  <img width="663" alt="image" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/dropMailHome.png">
+  <img width="663"  alt="image" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/dropMailHome.png">
 </p>
 
 <!-- Layout Mobile -->
