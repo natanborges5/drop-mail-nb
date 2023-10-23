@@ -17,12 +17,19 @@ Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
   o usuario(GetSession, GetNewSession e RefreshInbox) é onde também é salvo os dados do usuario, aqui eu decidi usar a lib [**Nookies**](https://www.npmjs.com/package/nookies/) para salvar nos cookies o id da session do user.
 
   Toda a aplicação tem um design responsivo que se adequa ao tamanho da tela, criei um layout diferente para mostrar os emails no mobile, ao clicar no email um drawer ocupa a tela com o corpo do Email.
-  • Layout Normal
+  
+• Layout Normal
+  
   <img width="663" alt="image" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/dropMailHome.png">
-  • Layout Mobile
+  
+• Layout Mobile
+  
   <img width="663" alt="imageMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/homeMobile.png">
-  • Layout Mobile Mail
+  
+• Layout Mobile Mail
+  
   <img width="663" alt="imageMailMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/mailMobile.png">
+  
   
   Escolhemos uma API de e-mail temporário confiável e bem mantida como nossa fonte de endereços de e-mail temporários.
   Desenvolvemos uma interface de usuário simples e intuitiva para permitir aos usuários gerar e gerenciar facilmente esses endereços.
