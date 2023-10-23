@@ -1,9 +1,9 @@
 <p align="center">
  <a href="#contexto-geral">Contexto geral</a> •
- <a href="#rodando-a-api">Rodando a aplicação</a> •
+ <a href="#rodando-o-app">Rodando a aplicação</a> •
 </p>
 
-## 🧙DropMail Natan Borges🧙(#-contexto-geral)
+## 🧙[DropMail Natan Borges]🧙(#-contexto-geral)
 
 • Descrição do projeto: Este projeto tem como objetivo desenvolver uma aplicação que permitirá aos usuários utilizar endereços de e-mail temporários para proteger sua privacidade e evitar spam ao interagir
 com sites e serviços online. Em vez de fornecer seus e-mails reais, os usuários poderão gerar e utilizar endereços de e-mail descartáveis por meio de uma API especializada. Essa solução proporciona uma camada
