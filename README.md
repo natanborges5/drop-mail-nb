@@ -35,12 +35,6 @@ Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
 <p align="center">
   <img width="663" alt="imageMailMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/mailMobile.png">
 </p>
-
-  
-  
-  Escolhemos uma API de e-mail temporário confiável e bem mantida como nossa fonte de endereços de e-mail temporários.
-  Desenvolvemos uma interface de usuário simples e intuitiva para permitir aos usuários gerar e gerenciar facilmente esses endereços.
-  Implementamos medidas de segurança rigorosas para proteger os dados do usuário.
   
 • *This is a challenge by Coodesh*
 ## 🎲 [Rodando a aplicação](#rodando-o-app)
