@@ -8,15 +8,14 @@ adicional de segurança e privacidade, permitindo que os usuários desfrutem de 
 Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
 
 • Decisões de Design  
-  Decidi trabalhar com o framework [**ChakraUI**](https://chakra-ui.com/) por já ter experiencia com ele e ser bem responsivo.
-  O projeto foi criado usando o Next, para consumir a [**DropMail API**](https://dropmail.me/api/) decidi usar o Axios que tem como URL base o endereço onde está rodando o container docker do 
-  [**drop-mail-proxy**](https://github.com/natanborges5/drop-mail-nb/tree/master/drop-mail-proxy), isso foi criado para resolver o problema de CORS ao acessar a API. O projeto foi publicado na [**vercel app**](https://drop-mail-nb.vercel.app/):,
-  o Front-end está online porém a API não está funcional na vercel, pois o proxy só roda localmente(Publiquei o proxy no Heroku, mas não existe mais plano gratis, então desabilitei o serviço).
 
-  Para desenvolver a aplicação usei os conceitos de arquitetura de **Component-Based Architecture** e **Context API**, utilizei o Context como AuthContext para gerenciar a sessão do usario, nesse contexto é onde existe todas as funções que lidam com
-  o usuario(GetSession, GetNewSession e RefreshInbox) é onde também é salvo os dados do usuario, aqui eu decidi usar a lib [**Nookies**](https://www.npmjs.com/package/nookies/) para salvar nos cookies o id da session do user.
+  Optei por utilizar o framework [**ChakraUI**](https://chakra-ui.com/)devido à minha experiência prévia com ele e sua capacidade de ser altamente responsivo. O projeto foi desenvolvido utilizando o Next.js, e para consumir a [**DropMail API**]    (https://dropmail.me/api/), optei pelo uso do Axios, configurando sua URL base para o endereço no qual o contêiner Docker do [**drop-mail-proxy**](https://github.com/natanborges5/drop-mail-nb/tree/master/drop-mail-proxy) está em execução. Essa configuração resolveu o problema de CORS (Cross-Origin Resource Sharing) ao acessar a API.
+  
+  O projeto foi hospedado na[**vercel app**](https://drop-mail-nb.vercel.app/), com o frontend disponível online. No entanto, a API não está funcional na Vercel, pois o proxy está configurado apenas para rodar localmente. Embora eu tenha tentado publicar o proxy no Heroku, não foi viável devido às limitações do plano gratuito.
+  
+  Para desenvolver a aplicação, adotei os princípios de **Component-Based Architecture** e utilizei o **Context API**para gerenciar o estado da sessão do usuário. No contexto do **AuthContext**, foram definidas todas as funções relacionadas ao usuário, incluindo operações como GetSession, GetNewSession e RefreshInbox. Além disso, os dados do usuário são armazenados neste contexto. Optei por utilizar a biblioteca [**Nookies**](https://www.npmjs.com/package/nookies/) para armazenar o ID da sessão do usuário nos cookies.
 
-  Toda a aplicação tem um design responsivo que se adequa ao tamanho da tela, criei um layout diferente para mostrar os emails no mobile, ao clicar no email um drawer ocupa a tela com o corpo do Email.
+  A aplicação foi desenvolvida com um design responsivo que se adapta ao tamanho da tela. Um layout especial foi criado para exibir os e-mails em dispositivos móveis, e ao clicar em um e-mail, um "drawer" ocupa a tela, exibindo o conteúdo do e-mail de forma mais detalhada.
   
 <!-- Layout Normal -->
 <h3 align="center">Layout Normal</h3>
