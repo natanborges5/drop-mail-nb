@@ -15,10 +15,12 @@ export function LongEmailCard({ author, title, content }: LongEmailCardProps) {
                 {title}
             </Text>
             <Text fontSize={{ base: 'xl', md: 'lg' }}>
-                From:{' '}
-                <Text as={'span'} color={'blue.600'} fontWeight={'bold'}>
-                    {author}
-                </Text>
+                {author !== "" && 
+                    <Text as={'span'} color={'blue.600'} fontWeight={'bold'}>
+                        From: {author}
+                    </Text>
+                }
+                
             </Text>
             <Text fontSize={{ base: 'lg', md: 'md' }}>{content}</Text>
         </Box>

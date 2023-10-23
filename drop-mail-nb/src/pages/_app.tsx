@@ -4,6 +4,10 @@ import { theme } from '@/styles/theme'
 import { AuthProvider } from '@/contexts/AuthContext'
 
 export default function App({ Component, pageProps }: AppProps) {
+    //@ts-ignore
+    global.performance = global.performance || {
+        now: () => new Date().getTime(),
+    };
     return (
         <ChakraProvider theme={theme}>
             <AuthProvider>
