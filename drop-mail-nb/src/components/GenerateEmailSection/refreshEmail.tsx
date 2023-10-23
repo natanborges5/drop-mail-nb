@@ -15,7 +15,7 @@ export function RefreshEmail() {
     const { refreshInbox } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [counter, setCounter] = useState(15)
-    const [allowNotification, setAllowNotification] = useState<boolean>(true)
+    const [allowNotification, setAllowNotification] = useState<boolean>(false)
     const toast = useToast()
     async function fetchMails() {
         try {
