@@ -18,17 +18,24 @@ Front-end: React com Next, Chakra-ui, TypeScript, Axios, Docker e Nookies
 
   Toda a aplicação tem um design responsivo que se adequa ao tamanho da tela, criei um layout diferente para mostrar os emails no mobile, ao clicar no email um drawer ocupa a tela com o corpo do Email.
   
-• Layout Normal
-  
+<!-- Layout Normal -->
+<h3 align="center">Layout Normal</h3>
+<p align="center">
   <img width="663" alt="image" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/dropMailHome.png">
-  
-• Layout Mobile
-  
+</p>
+
+<!-- Layout Mobile -->
+<h3 align="center">Layout Mobile</h3>
+<p align="center">
   <img width="663" alt="imageMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/homeMobile.png">
-  
-• Layout Mobile Mail
-  
+</p>
+
+<!-- Layout Mobile Mail -->
+<h3 align="center">Layout Mobile Mail</h3>
+<p align="center">
   <img width="663" alt="imageMailMobile" src="https://github.com/natanborges5/Images/blob/91b7fa3caab62c107874be057c083f190990fdbc/mailMobile.png">
+</p>
+
   
   
   Escolhemos uma API de e-mail temporário confiável e bem mantida como nossa fonte de endereços de e-mail temporários.
