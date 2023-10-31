@@ -9,15 +9,17 @@ import {
     Spinner,
     useToast,
 } from '@chakra-ui/react'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useCallback, useMemo } from 'react'
 import { MdRefresh, MdNotificationsOff, MdNotifications } from 'react-icons/md'
+
 export function RefreshEmail() {
     const { refreshInbox } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [counter, setCounter] = useState(15)
     const [allowNotification, setAllowNotification] = useState<boolean>(false)
     const toast = useToast()
-    async function fetchMails() {
+
+    const fetchMails = useCallback(async () => {
         try {
             setIsLoading(true)
             await refreshInbox(allowNotification)
@@ -34,8 +36,9 @@ export function RefreshEmail() {
         } finally {
             setIsLoading(false)
         }
-    }
-    async function handleShowNotification() {
+    }, [refreshInbox, allowNotification, toast])
+
+    const handleShowNotification = useCallback(() => {
         if (Notification.permission !== 'granted') {
             Notification.requestPermission().then((permission) => {
                 if (permission === 'granted') {
@@ -46,11 +49,12 @@ export function RefreshEmail() {
             })
         }
         setAllowNotification(!allowNotification)
-    }
+    }, [allowNotification])
+
     useEffect(() => {
         const interval = setInterval(() => {
             if (counter > 0) {
-                setCounter(counter - 1)
+                setCounter((prevCounter) => prevCounter - 1)
             } else {
                 clearInterval(interval)
                 fetchMails()
@@ -61,7 +65,12 @@ export function RefreshEmail() {
         return () => {
             clearInterval(interval)
         }
-    }, [counter])
+    }, [counter, fetchMails])
+
+    const notificationIcon = useMemo(() => {
+        return allowNotification ? <Icon as={MdNotifications} /> : <Icon as={MdNotificationsOff} />
+    }, [allowNotification])
+
     return (
         <Box>
             <HStack fontSize={{ base: 'xl', md: 'lg' }}>
@@ -98,11 +107,7 @@ export function RefreshEmail() {
                         backgroundColor: 'yellow.500',
                     }}
                 >
-                    {!allowNotification ? (
-                        <Icon as={MdNotificationsOff} />
-                    ) : (
-                        <Icon as={MdNotifications} />
-                    )}
+                    {notificationIcon}
                 </Button>
             </HStack>
         </Box>

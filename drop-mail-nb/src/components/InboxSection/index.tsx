@@ -1,23 +1,13 @@
 import {
     Box,
-    Button,
     Divider,
-    Drawer,
-    DrawerBody,
-    DrawerCloseButton,
-    DrawerContent,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerOverlay,
     Flex,
     Grid,
     GridItem,
-    Input,
-    Text,
     useBreakpointValue,
     useDisclosure,
 } from '@chakra-ui/react'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef, memo } from 'react'
 import { ShortEmailCard } from './shortEmailCard'
 import { LongEmailCard } from './longEmailCard'
 import { Email } from '@/types/Emails'
@@ -25,6 +15,12 @@ import { AreaTitle } from '../AreaTitle'
 import { AuthContext } from '@/contexts/AuthContext'
 import React from 'react'
 import EmailDrawer from './DrawerCard'
+
+
+
+const MemoizedShortEmailCard = memo(ShortEmailCard)
+const MemoizedLongEmailCard = memo(LongEmailCard)
+
 export function InboxSection() {
     const [selectedEmail, setSelectedEmail] = useState<Email>({
         toAddr: '',
@@ -41,16 +37,15 @@ export function InboxSection() {
         lg: 'large',
     })
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const btnRef = React.useRef()
-    const handleEmailClick = (email: Email) => {
+    const btnRef = useRef()
+    function handleEmailClick(email: Email, onOpen: () => void) {
         setSelectedEmail(email)
-        if (size === 'small') {
-            onOpen()
-        }
+        onOpen()
     }
     useEffect(() => {
-        setLocalMails(user?.mails ? [...user.mails] : [])
-    }, [user?.mails])
+        setLocalMails(user?.mails ?? [])
+    }, [])
+
     return (
         <Flex direction={'column'} bg="gray.700">
             <Divider borderColor={'yellow.400'} />
@@ -85,12 +80,12 @@ export function InboxSection() {
                 >
                     <Box mt={6}>
                         {localMails?.map((email, index) => (
-                            <ShortEmailCard
+                            <MemoizedShortEmailCard
                                 key={index}
                                 author={email.fromAddr}
                                 title={email.headerSubject}
                                 content={email.text}
-                                onClick={() => handleEmailClick(email)}
+                                onClick={() => handleEmailClick(email, onOpen)}
                             />
                         ))}
                     </Box>
@@ -105,7 +100,7 @@ export function InboxSection() {
                         w={'95%'}
                     >
                         {selectedEmail !== null && (
-                            <LongEmailCard
+                            <MemoizedLongEmailCard
                                 author={selectedEmail.fromAddr}
                                 title={selectedEmail.headerSubject}
                                 content={selectedEmail.text}

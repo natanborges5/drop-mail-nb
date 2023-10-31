@@ -2,7 +2,7 @@ import { api } from '@/services/api'
 import { Email } from '@/types/Emails'
 import { AppError, ErrorEntry } from '@/utils/AppErro'
 import { destroyCookie, parseCookies, setCookie } from 'nookies'
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 
 type ApiResponse = {
     data: {
@@ -42,29 +42,28 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<UserSession>()
+    let { 'userSession.id': parsedSessionId } = parseCookies();
     async function getSession() {
         try {
-            const { 'userSession.id': sessionId } = parseCookies()
-            if (!sessionId) {
-                await getNewSession()
-            } else {
+            parsedSessionId ?? await getNewSession()
+            if(parsedSessionId){
                 const queryToload = {
                     query: `
-                      query ($id: ID!) {
+                        query ($id: ID!) {
                         session(id: $id) {
-                          addresses { address }
-                          mails {
+                            addresses { address }
+                            mails {
                             rawSize
                             fromAddr
                             toAddr
                             downloadUrl
                             text
                             headerSubject
-                          }
+                            }
                         }
-                      }
+                        }
                     `,
-                    variables: { id: sessionId },
+                    variables: { id: parsedSessionId },
                 }
                 const response = await api.post<ApiResponse>(
                     '/https://dropmail.me/api/graphql/web-test-202310203KeHM',
@@ -77,7 +76,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 } else {
                     const { mails, addresses } = responseData
                     const updatedUser: UserSession = {
-                        id: sessionId,
+                        id: parsedSessionId,
                         mails,
                         addresses,
                     }
@@ -109,7 +108,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 maxAge: 60 * 60 * 24 * 50,
                 path: '/',
             })
-            getSession()
+            parsedSessionId = sessionProps.id
         } catch (error) {
             const isAppError = error instanceof ErrorEntry
             const title = isAppError

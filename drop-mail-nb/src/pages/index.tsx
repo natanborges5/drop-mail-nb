@@ -21,6 +21,7 @@ export default function Home() {
         try {
             setIsLoading(true)
             await getSession()
+            
         } catch (error) {
             if (error instanceof AppError)
                 toast({
